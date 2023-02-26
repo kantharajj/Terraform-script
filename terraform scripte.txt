@@ -1,0 +1,244 @@
+                                                                   to create security group
+provider "aws" {
+  access_key = "AKIA27W5X7L7TDIUCT4Q"
+  secret_key = "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"
+  region     = "ap-south-1"
+}
+resource "aws_security_group" "web-node" {
+  name        = "web-node"
+  description = "Web Security Group"
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
+
+}
+resource "aws_instance" "terraform1" {
+  ami           = "ami-079b5e5b3971bd10d"
+  instance_type = "t2.micro"
+  key_name      = "k2"
+  security_groups = ["${aws_security_group.web-node.name}"]
+  count         = 3
+}
+=====================================================================================================================================================================
+                                                               to add user data
+
+provider "aws" {
+access_key = "AKIAQEVLCHUIJEMMOEW6"
+secret_key = "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"
+region = "ap-south-1"
+}
+resource "aws_security_group" "web-node" {
+  name        = "web-node"
+  description = "Web Security Group"
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
+    cidr_blocks = ["0.0.0.0/0"]
+}
+}
+resource "aws_instance" "terra1" {
+  ami           = "ami-079b5e5b3971bd10d"
+  instance_type = "t2.micro"
+  key_name      = "abc"
+ security_groups = ["${aws_security_group.web-node.name}"]
+          user_data = <<-EOF
+#! /bin/bash
+  sudo yum update
+  sudo amazon-linux-extras install nginx1
+  sudo systemctl start nginx.service
+  sudo service nginx start
+  EOF
+}
+=======================================================================================================================================================================
+                                                                               resource
+provider "aws" {
+  region     = "ap-south-1"
+  access_key = "AKIARJZE7GSIK3E74Q73"
+  secret_key = "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"
+}
+resource "aws_instance" "terraform_demo" {
+ami = "ami-079b5e5b3971bd10d"
+instance_type = "t2.micro"
+key_name = "Kantha12"
+count = "3"
+}
+=======================================================================================================================================================================
+                                                                              to give tags
+
+provider "aws" {
+  region     = "ap-south-1"
+  access_key = "AKIAQEVLCHUIMZO4IR2E"
+  secret_key = "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"
+}
+resource "aws_security_group" "web-node1" {
+  name        = "web-node1"
+  description = "Web Security Group"
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
+
+}
+resource "aws_instance" "terraform2" {
+  ami           = "ami-076e3a557efe1aa9c"
+  instance_type = "t2.micro"
+  key_name      = "demo"
+  security_groups = ["${aws_security_group.web-node1.name}"]
+  count         = 3
+
+
+tags                    = {
+    Name = aws_instance.terraform2[count.index]
+  }
+}
+
+======================================================================================================================================================================
+
+
+
+
+provider "aws" {
+  region     = "us-east-2"
+  access_key = "AKIAZQNRJJQSKYDR4IAV"
+  secret_key = "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"
+}
+resource "aws_instance" "terraform_demo" {
+ami = "ami-0f924dc71d44d23e2"
+instance_type = "t2.micro"
+key_name = "k2"
+count = "1"
+}
+==========================================================================================================================
+
+                              in ubuntu
+
+provider "aws" {
+  region     = "us-east-2"
+  access_key = "AKIAZQNRJJQSGHAE7DVO"
+  secret_key = "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"
+  alias  = "env"
+}
+resource "aws_instance" "qspider" {
+ami = "ami-0f924dc71d44d23e2"
+instance_type = "t2.micro"
+key_name = "k2"
+count = "2"
+}
+
+========================================================================================================================
+                                       user data for tree
+
+provider "aws" {
+access_key = "AKIA3PBFSZQWDHF72WSR"
+secret_key = "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"
+region = "us-east-1"
+}
+resource "aws_security_group" "web-node" {
+  name        = "web-node"
+  description = "Web Security Group"
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
+    cidr_blocks = ["0.0.0.0/0"]
+}
+}
+resource "aws_instance" "terra" {
+  ami           = "ami-09d3b3274b6c5d4aa"
+  instance_type = "t2.micro"
+  key_name      = "k8s"
+ security_groups = ["${aws_security_group.web-node.name}"]
+          user_data = <<-EOF
+#! /bin/bash
+  sudo yum update
+  sudo yum install tree
+  sudo systemctl start tree
+  sudo service tree start
+  EOF
+}
+
+
+=========================================================================================================================
+
+                                user data
+
+provider "aws" {
+access_key = "AKIA3PBFSZQWLPVO6N5D"
+secret_key = "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"
+region = "us-east-1"
+alias = "env"
+}
+resource "aws_security_group" "web-node1" {
+  name        = "web-node1"
+  description = "Web Security Group"
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "all"
+    cidr_blocks = ["0.0.0.0/0"]
+}
+}
+resource "aws_instance" "terra1" {
+  ami           = "ami-09d3b3274b6c5d4aa"
+  instance_type = "t2.micro"
+  key_name      = "k8s"
+  count = "1"
+ security_groups = ["${aws_security_group.web-node.name}"]
+          user_data = <<-EOF
+#! /bin/bash
+  sudo yum update
+  sudo yum install tree
+  sudo systemctl start tree
+  sudo service tree start
+  EOF
+}
+
+
+
+
+
+
+
+
+
+
+
+
