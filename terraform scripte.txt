@@ -113,8 +113,8 @@ resource "aws_instance" "terraform2" {
   count         = 3
 
 
-tags                    = {
-    Name = aws_instance.terraform2[count.index]
+tags = {
+    Name = "aws_instance"
   }
 }
 
